@@ -7,6 +7,7 @@ body {
 
 .navbar {
     margin-bottom: 20px;
+    z-index: 1;
 }
 
 .navbar-toggler {
@@ -24,7 +25,8 @@ body {
 /* Alerts */
 .alert {
     margin: 20px auto;
-    max-width: 90%;
+    max-width: 80%;
+    z-index: 2;
 }
 
 /* Tables */
@@ -89,6 +91,10 @@ form {
     margin: 0 auto;
 }
 
+#profile-form{
+    max-width: 100%;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     table {
@@ -103,3 +109,4 @@ form {
         font-size: 14px;
     }
 }
+

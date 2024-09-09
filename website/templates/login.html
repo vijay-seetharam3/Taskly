@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block title %} Login {% endblock %}
 {% block content %}
+
 <form method="POST">
     <h3 align="center">Log in</h3>
     <div class="form-group">
@@ -14,4 +15,9 @@
     <br>
     <button type="login" class="btn btn-primary">Login</button>
 </form>
+<div>
+    <a href="/signup"><button id = "signup" type="signup" class="btn btn-primary">SignUp</button></a>
+</div>
+
+
 {% endblock %}
