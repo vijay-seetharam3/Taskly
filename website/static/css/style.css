@@ -95,6 +95,13 @@ form {
     max-width: 100%;
 }
 
+#title{
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bolder;
+    font-size: xx-large;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     table {

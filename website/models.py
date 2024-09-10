@@ -18,4 +18,8 @@ class User(db.Model,UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
+    bio = db.Column(db.String(150))
+    birthday = db.Column(db.String(150))
+    phone_no = db.Column(db.String(150))
+    profile_image = db.Column(db.LargeBinary)
     Todos = db.relationship('Todo')

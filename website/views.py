@@ -1,7 +1,8 @@
-from flask import Blueprint,render_template,redirect,request
+from flask import Blueprint,render_template,redirect,request,Response,url_for,flash
 from flask_login import login_required, current_user
 from . import db
 from .models import User, Todo
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 views = Blueprint('views' , __name__)
@@ -17,7 +18,6 @@ def home():
             db.session.commit()
             return redirect('/')
         except Exception as e:
-            # Print the exception details to understand the issue
             print(f"Error: {e}")
             return 'ERROR'
     else:
@@ -65,13 +65,66 @@ def pupdate(id):
         user.first_name = request.form.get('first_name')
         user.last_name = request.form.get('last_name')
         user.email = request.form.get('email')
+        user.bio = request.form.get('bio')
+        user.birthday = request.form.get('birthday')
+        user.phone_no = request.form.get('phone')
+        
 
+        if 'profile_image' in request.files:
+            file = request.files['profile_image']
+            if file.filename != '':
+                user.profile_image = file.read()
+
+        current_password = request.form.get('current_password')
+        new_password = request.form.get('new_password')
+        repeat_new_password = request.form.get('repeat_new_password')
+
+        if not len(current_password):
+            return render_template('profile.html', user=user)
+        else:
+            if not check_password_hash(user.password, current_password):
+                flash('Current password is incorrect.', category='error')
+                return redirect(url_for('views.profile'),id=id)
+
+            if new_password != repeat_new_password:
+                flash('New passwords do not match.', category='error')
+                return redirect(url_for('views.profile'),id=id)
+
+            if len(new_password)<=8:
+                flash('password should be greater than 8 characters', category='error')
+                return redirect(url_for('views.profile'),id=id)
+            
+            user.password = generate_password_hash(new_password)
+            flash("Your\'e \"Password\" has been changed")
         
         try:
             db.session.commit()
-            return redirect('/profile')
+            return redirect(url_for("views.profile"))
         except Exception as e:
             print(f"Error updating profile: {e}")
-            return 'There was an error updating your profile'
+            flash('There was an error updating your profile', category='error')
     else:
         return render_template('profile.html', user=current_user)
+
+@views.route('/profile_image/<int:id>')
+def profile_image(id):
+    user = User.query.get_or_404(id)
+    print(user)
+    print(user.profile_image)
+    if not user.profile_image:
+        return '', 404  # No image found
+
+    return Response(user.profile_image, mimetype='image/png')
+
+@views.route('/reset/<int:id>')
+@login_required
+def reset(id):
+    user = User.query.get_or_404(id)
+
+    user.profile_image = None
+
+    try:
+        db.session.commit()
+        return redirect('/profile')
+    except:
+        return 'There was a problem in deleting'

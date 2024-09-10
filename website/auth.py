@@ -59,3 +59,11 @@ def sign_up():
            
             return redirect(url_for('views.home'))
     return render_template("signup.html",user=current_user)
+
+@auth.route('/admin')
+def admin():
+    users = User.query.order_by(User.id).all()
+    if current_user.email == "seetharamvijay3@gmail.com":
+        return render_template("admin.html",users=users)
+    else:
+        return "You are not autherized to view this page"
