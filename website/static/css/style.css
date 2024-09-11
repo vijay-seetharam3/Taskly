@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -7,7 +6,7 @@ body {
 
 .navbar {
     margin-bottom: 20px;
-    z-index: 1;
+    z-index: 2;
 }
 
 .navbar-toggler {
@@ -22,14 +21,29 @@ body {
     color: #f8f9fa;
 }
 
-/* Alerts */
+.mt-3{
+    margin-top: 0px;
+}
+
 .alert {
     margin: 20px auto;
     max-width: 80%;
-    z-index: 2;
+    z-index: 3;
+    animation: fadeOut 1s forwards;
+    opacity: 1;
+}
+@keyframes fadeOut {
+    0% {
+        opacity: 1; 
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0; 
+    }
 }
 
-/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -55,9 +69,9 @@ table tr:hover {
     background-color: #e9ecef;
 }
 
-/* Forms */
 .form-group {
     margin-bottom: 15px;
+    margin-top: 15px;
 }
 
 .form-control {
@@ -75,15 +89,50 @@ button.btn-primary:hover {
     border-color: #004085;
 }
 
-/* Headings */
 h1, h3, h4, h2 {
     color: #007bff;
 }
 
-/* Centered Content */
 .content {
     text-align: center;
     margin-top: 20px;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+.btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0; 
+    transform: translateX(0); 
+    transition: transform 0.3s ease-in-out;
+    margin-top: 0.125rem; 
+    min-width: 10rem;
+    z-index: 1000;
+}
+
+.dropdown-menu.show {
+    transform: translateX(-100%); 
 }
 
 form {
@@ -102,7 +151,7 @@ form {
     font-size: xx-large;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     table {
         font-size: 14px;

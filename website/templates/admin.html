@@ -12,15 +12,13 @@
             <th>Name</th>
             <th>E-mail</th>
             <th>Phone Number</th>
-            <th>Date of Birth</th>
             
         </tr>
         {% for user in users %}
         <tr>
-            <td>{{ user.first_name + user.last_name }}</td>
+            <td>{{ user.first_name + " " + user.last_name }}</td>
             <td>{{ user.email }}</td>
-            <td>{{user.phone_number}}</td>
-            <td>{{user.birthday}}</td>
+            <td>{{user.phone_no}}</td>
         </tr>
         {% endfor %}
 </body>
